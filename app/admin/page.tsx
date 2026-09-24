@@ -32,7 +32,8 @@ export default function AdminPage() {
   async function publish(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (!supabase || !session) return
-    const form = new FormData(event.currentTarget)
+    const formElement = event.currentTarget
+    const form = new FormData(formElement)
     const title = String(form.get('title') || '').trim()
     const slug = String(form.get('slug') || '').trim()
     const shortDescription = String(form.get('shortDescription') || '').trim()
@@ -67,7 +68,7 @@ export default function AdminPage() {
       })
       if (fileError) throw fileError
 
-      event.currentTarget.reset()
+      formElement.reset()
       setMessage('เผยแพร่ผลงานเรียบร้อยแล้ว ✓')
     } catch (error: any) {
       setMessage(error?.message || 'เกิดข้อผิดพลาด')
