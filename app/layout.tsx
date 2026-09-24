@@ -1,28 +1,20 @@
+import type { Metadata } from 'next'
 import './globals.css'
-import Link from 'next/link'
+import { SiteFooter } from '@/components/SiteFooter'
+import { SiteHeader } from '@/components/SiteHeader'
 
-export const metadata = {
-  title: 'Megamuii Works',
-  description: 'Mods, projects and downloads by Megamuii'
+export const metadata: Metadata = {
+  title: 'Megamuii Works — Mods, Projects & Downloads',
+  description: 'พื้นที่รวมม็อด โปรเจกต์ และผลงานดาวน์โหลดจาก Megamuii'
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="th">
       <body>
-        <header className="nav">
-          <div className="container nav-inner">
-            <Link href="/" className="brand">Megamuii Works</Link>
-            <nav className="nav-links">
-              <Link className="nav-pill hide-mobile" href="/">ผลงาน</Link>
-              <Link className="nav-pill" href="/admin">Admin</Link>
-            </nav>
-          </div>
-        </header>
+        <SiteHeader />
         {children}
-        <footer className="footer">
-          <div className="container">© 2026 Megamuii · Mods, projects & downloads</div>
-        </footer>
+        <SiteFooter />
       </body>
     </html>
   )

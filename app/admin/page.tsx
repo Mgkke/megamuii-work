@@ -82,10 +82,10 @@ export default function AdminPage() {
         <h2>Admin Login</h2>
         <p className="meta">เข้าสู่ระบบด้วยบัญชีเจ้าของเว็บ</p>
         <form className="form" onSubmit={login}>
-          <div className="field"><label>Email</label><input type="email" value={email} onChange={e => setEmail(e.target.value)} required /></div>
-          <div className="field"><label>Password</label><input type="password" value={password} onChange={e => setPassword(e.target.value)} required /></div>
+          <div className="field"><label htmlFor="admin-email">Email</label><input id="admin-email" type="email" value={email} onChange={e => setEmail(e.target.value)} autoComplete="username" required /></div>
+          <div className="field"><label htmlFor="admin-password">Password</label><input id="admin-password" type="password" value={password} onChange={e => setPassword(e.target.value)} autoComplete="current-password" required /></div>
           <button className="btn" disabled={busy}>{busy ? 'กำลังเข้าสู่ระบบ...' : 'Login'}</button>
-          {message && <div className="note">{message}</div>}
+          {message && <div className="note" role="status" aria-live="polite">{message}</div>}
         </form>
       </section></div></main>
     )
@@ -99,16 +99,16 @@ export default function AdminPage() {
           <section className="panel">
             <h3>เพิ่มผลงานใหม่</h3>
             <form className="form" onSubmit={publish}>
-              <div className="field"><label>รูปปก</label><input name="cover" type="file" accept="image/*" required /></div>
-              <div className="field"><label>หัวข้อ</label><input name="title" placeholder="Dressmaker Thai Mod" required /></div>
-              <div className="field"><label>Slug</label><input name="slug" placeholder="dressmaker-thai" required /></div>
-              <div className="field"><label>คำอธิบายสั้น</label><input name="shortDescription" placeholder="ข้อความสั้น ๆ สำหรับการ์ด" /></div>
-              <div className="field"><label>รายละเอียด</label><textarea name="description" placeholder="รายละเอียดของผลงาน" /></div>
-              <div className="field"><label>วิธีติดตั้ง</label><textarea name="installation" placeholder={'หนึ่งขั้นตอนต่อหนึ่งบรรทัด\nเช่น ดาวน์โหลดไฟล์\nแตกไฟล์ลงโฟลเดอร์เกม'} /></div>
-              <div className="field"><label>Version</label><input name="version" placeholder="0.1.0" required /></div>
-              <div className="field"><label>ไฟล์งาน</label><input name="workFile" type="file" required /></div>
+              <div className="field"><label htmlFor="project-cover">รูปปก</label><input id="project-cover" name="cover" type="file" accept="image/*" required /></div>
+              <div className="field"><label htmlFor="project-title">หัวข้อ</label><input id="project-title" name="title" placeholder="Dressmaker Thai Mod" required /></div>
+              <div className="field"><label htmlFor="project-slug">Slug</label><input id="project-slug" name="slug" placeholder="dressmaker-thai" required /></div>
+              <div className="field"><label htmlFor="project-short-description">คำอธิบายสั้น</label><input id="project-short-description" name="shortDescription" placeholder="ข้อความสั้น ๆ สำหรับการ์ด" /></div>
+              <div className="field"><label htmlFor="project-description">รายละเอียด</label><textarea id="project-description" name="description" placeholder="รายละเอียดของผลงาน" /></div>
+              <div className="field"><label htmlFor="project-installation">วิธีติดตั้ง</label><textarea id="project-installation" name="installation" placeholder={'หนึ่งขั้นตอนต่อหนึ่งบรรทัด\nเช่น ดาวน์โหลดไฟล์\nแตกไฟล์ลงโฟลเดอร์เกม'} /></div>
+              <div className="field"><label htmlFor="project-version">Version</label><input id="project-version" name="version" placeholder="0.1.0" required /></div>
+              <div className="field"><label htmlFor="project-file">ไฟล์งาน</label><input id="project-file" name="workFile" type="file" required /></div>
               <button className="btn" disabled={busy}>{busy ? 'กำลังเผยแพร่...' : 'Publish Project'}</button>
-              {message && <div className="note">{message}</div>}
+              {message && <div className="note" role="status" aria-live="polite">{message}</div>}
             </form>
           </section>
           <section className="panel">
