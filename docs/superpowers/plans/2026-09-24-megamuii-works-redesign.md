@@ -84,4 +84,4 @@
 
 - [x] Run `npm run build`; resolve any compilation or lint failures caused by the changes.
 - [x] Inspect `git diff --check` and the full diff; confirm no Supabase/data/schema changes or credentials are included.
-- [ ] Commit the redesign and push the authorized branch to `origin`.
+- [x] Commit the redesign and push the authorized branch to `origin`.
