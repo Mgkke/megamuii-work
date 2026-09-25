@@ -1,6 +1,8 @@
 'use client'
 
 import Link from 'next/link'
+import { NamedDownloadLink } from '@/components/NamedDownloadLink'
+import { normalizeDownloadFilename } from '@/lib/download-filename.mjs'
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { ConfirmDialog, StatusMessage } from './AdminControls'
 import { useAdmin } from './AdminShell'
@@ -183,10 +185,10 @@ export function AdminVersionManager({ projectId }: { projectId: string }) {
             <article className="admin-version-card" key={file.id}>
               <div className="admin-version-main">
                 <span className={`admin-version-index ${index === 0 ? 'is-latest' : ''}`}>{index === 0 ? 'LATEST' : `#${files.length - index}`}</span>
-                <div className="admin-version-info"><h3>v{file.version}</h3><p className="admin-version-filename">{file.file_name}</p><p className="admin-project-meta">{formatAdminDate(file.created_at)} <span aria-hidden="true">·</span> {formatFileSize(file.file_size)}</p></div>
+                <div className="admin-version-info"><h3>v{file.version}</h3><p className="admin-version-filename">{normalizeDownloadFilename(file.file_name)}</p><p className="admin-project-meta">{formatAdminDate(file.created_at)} <span aria-hidden="true">·</span> {formatFileSize(file.file_size)}</p></div>
               </div>
               <div className="admin-version-actions">
-                <a className="btn secondary" href={file.file_url} target="_blank" rel="noreferrer">ดาวน์โหลด</a>
+                <NamedDownloadLink className="btn secondary" href={file.file_url} downloadFileName={file.file_name}>ดาวน์โหลด</NamedDownloadLink>
                 <label className={`btn admin-blue-button ${busyFileId === file.id ? 'is-disabled' : ''}`} htmlFor={`replace-file-${file.id}`}>{busyFileId === file.id ? 'กำลังเปลี่ยน…' : 'แทนที่ไฟล์'}<input className="admin-visually-hidden" id={`replace-file-${file.id}`} type="file" disabled={Boolean(busyFileId)} onChange={(event) => { const replacement = event.target.files?.[0]; if (replacement) void replaceFile(file, replacement); event.currentTarget.value = '' }} /></label>
                 <button className="btn danger-outline" type="button" disabled={Boolean(busyFileId) || files.length <= 1} title={files.length <= 1 ? 'โปรเจกต์ต้องมีอย่างน้อยหนึ่งเวอร์ชัน' : undefined} onClick={() => setPendingDelete(file)}>ลบเวอร์ชัน</button>
               </div>

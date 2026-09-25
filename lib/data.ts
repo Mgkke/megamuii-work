@@ -1,4 +1,5 @@
 import { projects as demoProjects, type Project } from './projects'
+import { normalizeDownloadFilename } from './download-filename.mjs'
 import { getSupabasePublicClient } from './supabase'
 
 function formatThaiDate(value: string) {
@@ -28,7 +29,7 @@ export async function listProjects(): Promise<Project[]> {
       .sort((a: any, b: any) => +new Date(b.created_at) - +new Date(a.created_at))
       .map((file: any) => ({
         version: file.version,
-        fileName: file.file_name,
+        fileName: normalizeDownloadFilename(file.file_name),
         fileUrl: file.file_url,
         date: formatThaiDate(file.created_at)
       }))

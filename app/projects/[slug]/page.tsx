@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { DownloadButton } from '@/components/DownloadButton'
+import { NamedDownloadLink } from '@/components/NamedDownloadLink'
 import { getProjectBySlug } from '@/lib/data'
 
 export const dynamic = 'force-dynamic'
@@ -44,7 +45,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
             </div>
             {project.shortDescription && <p className="detail-summary">{project.shortDescription}</p>}
             {latestFile ? (
-              <DownloadButton href={latestFile.fileUrl} target="_blank" rel="noreferrer">
+              <DownloadButton href={latestFile.fileUrl} downloadFileName={latestFile.fileName}>
                 ดาวน์โหลดเวอร์ชันล่าสุด <span className="button-version">v{latestFile.version}</span>
               </DownloadButton>
             ) : (
@@ -78,7 +79,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 <span className="latest-label"><span className="status-dot" /> เวอร์ชันล่าสุด</span>
                 <h3>{latestFile.fileName}</h3>
                 <p className="meta">v{latestFile.version} <span aria-hidden="true">·</span> {latestFile.date}</p>
-                <DownloadButton className="file-download-button" href={latestFile.fileUrl} target="_blank" rel="noreferrer">ดาวน์โหลดไฟล์</DownloadButton>
+                <DownloadButton className="file-download-button" href={latestFile.fileUrl} downloadFileName={latestFile.fileName}>ดาวน์โหลดไฟล์</DownloadButton>
               </div>
             ) : (
               <div className="no-files"><p>ยังไม่มีไฟล์ดาวน์โหลดสำหรับผลงานนี้</p></div>
@@ -89,7 +90,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
                 {previousFiles.map((file) => (
                   <div className="version-row" key={`${file.version}-${file.fileName}`}>
                     <div className="version-row-info"><strong>v{file.version}</strong><span>{file.fileName}</span><span className="meta">{file.date}</span></div>
-                    <a className="version-download" href={file.fileUrl} target="_blank" rel="noreferrer" aria-label={`ดาวน์โหลด ${file.fileName}`}>↓</a>
+                    <NamedDownloadLink className="version-download" href={file.fileUrl} downloadFileName={file.fileName} aria-label={`ดาวน์โหลด ${file.fileName}`}>↓</NamedDownloadLink>
                   </div>
                 ))}
               </div>
