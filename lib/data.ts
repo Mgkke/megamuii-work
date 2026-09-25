@@ -14,7 +14,7 @@ export async function listProjects(): Promise<Project[]> {
     .select('slug,title,short_description,description,installation,cover_url,updated_at,project_files(version,file_name,file_url,created_at)')
     .order('updated_at', { ascending: false })
 
-  if (error || !data?.length) return demoProjects
+  if (error || !data) return []
 
   return data.map((row: any) => ({
     slug: row.slug,
